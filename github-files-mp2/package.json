@@ -16,7 +16,7 @@
     "api",
     "cs312"
   ],
-  "author": "Student",
+  "author": "Anthony P.",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.7.7",
