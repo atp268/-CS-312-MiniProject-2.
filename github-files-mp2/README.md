@@ -14,13 +14,6 @@ Cocktail Companion
 
 ---
 
-##  Tech Stack
-
-- **Runtime**: [Node.js](https://nodejs.org/) (v18+ or v20+)
-- **Backend Framework**: [Express.js](https://expressjs.com/)
-- **Templating Engine**: [EJS](https://ejs.co/) (Embedded JavaScript)
-- **HTTP Client**: [Axios](https://axios-http.com/)
-- **Styling**: Pure responsive CSS3
 - **External Public APIs**:
   1. [TheCocktailDB API](https://www.thecocktaildb.com/api.php) - Primary cocktail search, random recipes, and category filters (Free, CORS-enabled, no authentication).
   2. [TheMealDB API](https://www.themealdb.com/api.php) - Secondary API for chef food and snack pairings (Free, CORS-enabled, no authentication).
