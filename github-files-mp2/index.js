@@ -67,15 +67,7 @@ const TASTE_MATCHED_SNACKS = {
   }
 };
 
-/**
- * Domain Model Processor:
- * Transforms raw, sparse CocktailDB responses into a rich mixology entity.
- * Evaluates:
- * 1. Measurement normalization (handling messy fractions and unitless quantities)
- * 2. Flavor profile classification (identifying citrus, herbal, spirit-forward, or tropical notes)
- * 3. Estimated ABV potency (spirit-to-dilution ratio)
- * 4. Serving protocol (ice selection & glassware guidelines)
- */
+
 function processCocktailDomainModel(raw) {
   if (!raw) return null;
 
