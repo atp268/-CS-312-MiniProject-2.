@@ -13,14 +13,14 @@
     
     <!-- header -->
     <header>
-      <h1>🍸 Cocktail Companion</h1>
+      <h1>Cocktail Companion</h1>
       <p class="subtitle">Category Filter: <%= category %></p>
       
       <!-- navbar -->
       <nav class="navbar">
-        <a href="/" class="nav-link">🏠 Home</a>
-        <a href="/random" class="nav-link">🎲 Surprise Me!</a>
-        <a href="/#categories-section" class="nav-link">📂 Categories</a>
+        <a href="/" class="nav-link"> Home</a>
+        <a href="/random" class="nav-link"> Surprise Me!</a>
+        <a href="/#categories-section" class="nav-link"> Categories</a>
       </nav>
     </header>
 
@@ -36,7 +36,7 @@
               </option>
             <% }); %>
           </select>
-          <button type="submit" class="btn btn-primary">Filter 📂</button>
+          <button type="submit" class="btn btn-primary">Filter</button>
         </div>
       </form>
     </section>
@@ -70,7 +70,7 @@
                 <h3 class="drink-card-title"><%= drink.name %></h3>
                 <div class="drink-card-footer">
                   <a href="/drink/<%= drink.id %>" class="btn btn-primary btn-block">
-                    View Recipe 🍸
+                    View Recipe
                   </a>
                 </div>
               </div>
