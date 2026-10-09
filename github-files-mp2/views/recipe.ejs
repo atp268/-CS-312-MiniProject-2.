@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= drink.name %> Recipe - Cocktail Companion</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+  <!-- main container -->
+  <div class="container">
+    
+    <!-- header -->
+    <header>
+      <h1>🍸 Cocktail Companion</h1>
+      <p class="subtitle">Complete Recipe & Pairing Details</p>
+      
+      <!-- navbar -->
+      <nav class="navbar">
+        <a href="/" class="nav-link">🏠 Home</a>
+        <a href="/random" class="nav-link">🎲 Surprise Me!</a>
+        <a href="/#categories-section" class="nav-link">📂 Categories</a>
+      </nav>
+    </header>
+
+    <!-- top action buttons -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+      <a href="/" class="btn btn-secondary">← Back to Search</a>
+      <a href="/random" class="btn btn-random">🎲 Another Random Drink</a>
+    </div>
+
+    <!-- main cocktail card -->
+    <article class="card">
+      <div class="recipe-header">
+        <h2 class="recipe-title"><%= drink.name %></h2>
+        <div class="recipe-badges">
+          <span class="badge badge-category"><%= drink.category %></span>
+          <span class="badge badge-alcohol"><%= drink.alcoholic %></span>
+          <span class="badge badge-glass">Glass: <%= drink.glass %></span>
+        </div>
+      </div>
+
+      <div class="recipe-main-grid">
+        <!-- cocktail photo -->
+        <div class="recipe-image-wrap">
+          <img src="<%= drink.thumbnail %>" alt="<%= drink.name %>">
+        </div>
+
+        <!-- ingredients checklist -->
+        <div>
+          <h3>Ingredients & Measurements</h3>
+          <% if (drink.ingredients.length === 0) { %>
+            <p style="color: #888;">No ingredient list specified.</p>
+          <% } else { %>
+            <ul class="ingredients-list">
+              <% drink.ingredients.forEach(function(item) { %>
+                <li>
+                  <span class="ingredient-name">🥄 <%= item.name %></span>
+                  <span class="ingredient-measure"><%= item.measure %></span>
+                </li>
+              <% }); %>
+            </ul>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- preparation instructions -->
+      <h3>Preparation Instructions</h3>
+      <div class="instructions-box">
+        <p style="margin: 0;"><%= drink.instructions %></p>
+      </div>
+    </article>
+
+    <!-- bonus challenge 2: food pairing from TheMealDB API -->
+    <% if (foodPairing) { %>
+      <section class="card pairing-card">
+        <h3>
+          🍽️ Chef's Food Pairing 
+          <span class="bonus-badge-title">Bonus: 2nd API (TheMealDB)</span>
+        </h3>
+        <p class="subtitle" style="text-align: left; margin-bottom: 15px;">
+          Enjoy your <strong><%= drink.name %></strong> with this complementary recipe fetched live from TheMealDB API!
+        </p>
+
+        <div class="pairing-grid">
+          <img src="<%= foodPairing.thumbnail %>" alt="<%= foodPairing.name %>" class="pairing-img">
+          <div class="pairing-body">
+            <h4><%= foodPairing.name %></h4>
+            <div class="pairing-meta">
+              <strong>Category:</strong> <%= foodPairing.category %> | 
+              <strong>Cuisine:</strong> <%= foodPairing.area %>
+            </div>
+            <div class="pairing-desc">
+              <%= foodPairing.instructions %>
+            </div>
+          </div>
+        </div>
+      </section>
+    <% } %>
+
+    <!-- bonus challenge 2: bar humor from JokeAPI -->
+    <% if (joke) { %>
+      <section class="card joke-card" style="border-left: 5px solid #f1c40f;">
+        <h3>
+          😄 Bartender's Table Joke 
+          <span class="bonus-badge-title" style="background-color: #f39c12;">Bonus: JokeAPI</span>
+        </h3>
+        <% if (joke.type === 'twopart') { %>
+          <p style="font-size: 1rem; color: #2c3e50; margin-bottom: 6px;">
+            <strong>Setup:</strong> <%= joke.setup %>
+          </p>
+          <p style="font-size: 1rem; color: #27ae60; font-weight: bold; margin-top: 0;">
+            <strong>Punchline:</strong> <%= joke.delivery %>
+          </p>
+        <% } else { %>
+          <p style="font-size: 1rem; color: #2c3e50;">
+            "<%= joke.joke %>"
+          </p>
+        <% } %>
+      </section>
+    <% } %>
+
+    <!-- footer -->
+    <footer>
+      <p>&copy; <%= new Date().getFullYear() %> Cocktail Companion. Data provided by TheCocktailDB, TheMealDB & JokeAPI.</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>

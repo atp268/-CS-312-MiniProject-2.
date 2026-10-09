@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oops! - Cocktail Companion</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+  <!-- main container -->
+  <div class="container">
+    
+    <!-- header -->
+    <header>
+      <h1>🍸 Cocktail Companion</h1>
+      <p class="subtitle">Something didn't go quite as planned</p>
+    </header>
+
+    <!-- error card -->
+    <section class="card" style="text-align: center; padding: 40px 20px;">
+      <div style="font-size: 3rem; margin-bottom: 10px;">⚠️</div>
+      <h2 style="color: #c0392b; border: none; margin-bottom: 12px;">Notice</h2>
+      <p style="font-size: 1.05rem; color: #555; max-width: 500px; margin: 0 auto 25px auto;">
+        <%= errorMessage || "An unexpected error occurred while processing your request." %>
+      </p>
+
+      <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+        <a href="<%= backLink || '/' %>" class="btn btn-primary">🏠 Return to Home</a>
+        <a href="/random" class="btn btn-random">🎲 Try a Random Cocktail</a>
+      </div>
+    </section>
+
+    <!-- quick search -->
+    <section class="card">
+      <h3 style="margin-top: 0;">Try Searching for Another Drink</h3>
+      <form action="/search" method="GET">
+        <div class="search-form-row">
+          <input 
+            type="text" 
+            name="q" 
+            placeholder="e.g. Margarita, Daiquiri, Mojito..." 
+            required
+          >
+          <button type="submit" class="btn btn-search">Search 🔍</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- footer -->
+    <footer>
+      <p>&copy; <%= new Date().getFullYear() %> Cocktail Companion.</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>

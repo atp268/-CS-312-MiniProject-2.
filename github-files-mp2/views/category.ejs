@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= category %> Cocktails - Cocktail Companion</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+  <!-- main container -->
+  <div class="container">
+    
+    <!-- header -->
+    <header>
+      <h1>🍸 Cocktail Companion</h1>
+      <p class="subtitle">Category Filter: <%= category %></p>
+      
+      <!-- navbar -->
+      <nav class="navbar">
+        <a href="/" class="nav-link">🏠 Home</a>
+        <a href="/random" class="nav-link">🎲 Surprise Me!</a>
+        <a href="/#categories-section" class="nav-link">📂 Categories</a>
+      </nav>
+    </header>
+
+    <!-- switch category form -->
+    <section class="card" style="padding: 15px 20px;">
+      <form action="/category" method="GET">
+        <label for="category-select">Switch Category:</label>
+        <div class="search-form-row">
+          <select id="category-select" name="category" required>
+            <% categories.forEach(function(cat) { %>
+              <option value="<%= cat %>" <%= cat.toLowerCase() === category.toLowerCase() ? 'selected' : '' %>>
+                <%= cat %>
+              </option>
+            <% }); %>
+          </select>
+          <button type="submit" class="btn btn-primary">Filter 📂</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- category header & count -->
+    <section>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <h2 style="margin: 0; color: #34495e;">
+          <%= category %> 
+          <span style="font-size: 1rem; color: #7f8c8d; font-weight: normal;">(<%= drinks.length %> drinks)</span>
+        </h2>
+        <a href="/" class="btn btn-secondary">← Back to Home</a>
+      </div>
+
+      <% if (error) { %>
+        <div class="alert alert-danger"><%= error %></div>
+      <% } %>
+
+      <% if (drinks.length === 0) { %>
+        <div class="empty-state">
+          <p>No drinks found in this category.</p>
+          <a href="/" class="btn btn-primary">Back to Homepage</a>
+        </div>
+      <% } else { %>
+        <!-- grid of drinks in category -->
+        <div class="drink-grid">
+          <% drinks.forEach(function(drink) { %>
+            <article class="drink-card">
+              <img src="<%= drink.thumbnail %>" alt="<%= drink.name %>" class="drink-card-img">
+              <div class="drink-card-body">
+                <h3 class="drink-card-title"><%= drink.name %></h3>
+                <div class="drink-card-footer">
+                  <a href="/drink/<%= drink.id %>" class="btn btn-primary btn-block">
+                    View Recipe 🍸
+                  </a>
+                </div>
+              </div>
+            </article>
+          <% }); %>
+        </div>
+      <% } %>
+    </section>
+
+    <!-- footer -->
+    <footer>
+      <p>&copy; <%= new Date().getFullYear() %> Cocktail Companion. Data provided by TheCocktailDB.</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>

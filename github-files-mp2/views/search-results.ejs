@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Results for "<%= searchQuery %>" - Cocktail Companion</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+  <!-- main container -->
+  <div class="container">
+    
+    <!-- header -->
+    <header>
+      <h1>🍸 Cocktail Companion</h1>
+      <p class="subtitle">Search Results for "<%= searchQuery %>"</p>
+      
+      <!-- navbar -->
+      <nav class="navbar">
+        <a href="/" class="nav-link">🏠 Home</a>
+        <a href="/random" class="nav-link">🎲 Surprise Me!</a>
+        <a href="/#categories-section" class="nav-link">📂 Categories</a>
+      </nav>
+    </header>
+
+    <!-- search again form -->
+    <section class="card" style="padding: 15px 20px;">
+      <form action="/search" method="GET">
+        <div class="search-form-row">
+          <input 
+            type="text" 
+            name="q" 
+            placeholder="Search another cocktail..." 
+            value="<%= searchQuery %>"
+            required
+          >
+          <button type="submit" class="btn btn-search">Search Again 🔍</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- results overview -->
+    <section>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <h2 style="margin: 0; color: #34495e;">Found <%= drinks.length %> Recipe<%= drinks.length === 1 ? '' : 's' %></h2>
+        <a href="/" class="btn btn-secondary">← Back to Home</a>
+      </div>
+
+      <!-- grid of drinks -->
+      <div class="drink-grid">
+        <% drinks.forEach(function(drink) { %>
+          <article class="drink-card">
+            <img src="<%= drink.thumbnail %>" alt="<%= drink.name %>" class="drink-card-img">
+            <div class="drink-card-body">
+              <h3 class="drink-card-title"><%= drink.name %></h3>
+              
+              <div class="drink-card-meta">
+                <span class="badge badge-category"><%= drink.category %></span>
+                <span class="badge badge-alcohol"><%= drink.alcoholic %></span>
+              </div>
+
+              <div class="drink-card-footer">
+                <a href="/drink/<%= drink.id %>" class="btn btn-primary btn-block">
+                  View Recipe 🍸
+                </a>
+              </div>
+            </div>
+          </article>
+        <% }); %>
+      </div>
+    </section>
+
+    <!-- footer -->
+    <footer>
+      <p>&copy; <%= new Date().getFullYear() %> Cocktail Companion. Data provided by TheCocktailDB.</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>

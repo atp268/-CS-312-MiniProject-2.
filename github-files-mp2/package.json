@@ -1,0 +1,26 @@
+{
+  "name": "cocktail-companion",
+  "version": "1.0.0",
+  "description": "A cocktail recipe finder and mixology web application built with Node.js, Express, EJS, and Axios.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test_app.js"
+  },
+  "keywords": [
+    "cocktail",
+    "recipe",
+    "express",
+    "ejs",
+    "axios",
+    "api",
+    "cs312"
+  ],
+  "author": "Student",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.0"
+  }
+}

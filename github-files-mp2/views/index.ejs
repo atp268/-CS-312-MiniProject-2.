@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🍸 Cocktail Companion - Find Your Next Drink</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+  <!-- main container -->
+  <div class="container">
+    
+    <!-- header -->
+    <header>
+      <h1>🍸 Cocktail Companion</h1>
+      <p class="subtitle">Search cocktail recipes, filter categories, discover food pairings & enjoy bar humor</p>
+      
+      <!-- navbar -->
+      <nav class="navbar">
+        <a href="/" class="nav-link">🏠 Home</a>
+        <a href="/random" class="nav-link">🎲 Surprise Me!</a>
+        <a href="#categories-section" class="nav-link">📂 Categories</a>
+      </nav>
+    </header>
+
+    <!-- error banner if query failed -->
+    <% if (error) { %>
+      <div class="alert alert-danger">
+        ⚠️ <%= error %>
+      </div>
+    <% } %>
+
+    <!-- joke banner from JokeAPI (Bonus 2) -->
+    <% if (joke) { %>
+      <div class="joke-banner">
+        <h4>😄 Bartender's Icebreaker of the Day</h4>
+        <% if (joke.type === 'twopart') { %>
+          <p><strong>Q:</strong> <%= joke.setup %></p>
+          <p><strong>A:</strong> <%= joke.delivery %></p>
+        <% } else { %>
+          <p><%= joke.joke %></p>
+        <% } %>
+      </div>
+    <% } %>
+
+    <!-- search cocktail card -->
+    <section class="card">
+      <h2>Search Cocktail Recipes</h2>
+      <p style="margin-top: 0; color: #666; font-size: 0.9rem;">
+        Type the name of any cocktail to fetch live recipe details, measurements, and preparation steps from the CocktailDB API.
+      </p>
+
+      <form action="/search" method="GET">
+        <div class="form-group">
+          <label for="q">Cocktail Name:</label>
+          <div class="search-form-row">
+            <input 
+              type="text" 
+              id="q" 
+              name="q" 
+              placeholder="e.g. Margarita, Mojito, Old Fashioned, Martini..." 
+              value="<%= searchQuery || '' %>"
+              required
+            >
+            <button type="submit" class="btn btn-search">Search 🔍</button>
+          </div>
+        </div>
+      </form>
+
+      <div style="margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+        <span style="font-size: 0.85rem; color: #7f8c8d;">Popular:</span>
+        <a href="/search?q=Margarita" class="pill">Margarita</a>
+        <a href="/search?q=Mojito" class="pill">Mojito</a>
+        <a href="/search?q=Martini" class="pill">Martini</a>
+        <a href="/search?q=Daiquiri" class="pill">Daiquiri</a>
+        <a href="/search?q=Negroni" class="pill">Negroni</a>
+        <a href="/random" class="btn btn-random" style="margin-left: auto;">🎲 Random Drink</a>
+      </div>
+    </section>
+
+    <!-- category filter card (Bonus Challenge 1) -->
+    <section class="card" id="categories-section">
+      <h2>
+        Browse by Category 
+        <span class="bonus-badge-title">Bonus Feature</span>
+      </h2>
+      <p style="margin-top: 0; color: #666; font-size: 0.9rem;">
+        Filter drinks by category using the live CocktailDB category collection.
+      </p>
+
+      <form action="/category" method="GET">
+        <div class="form-group">
+          <label for="category">Select Drink Category:</label>
+          <div class="search-form-row">
+            <select id="category" name="category" required>
+              <option value="" disabled selected>-- Choose a category --</option>
+              <% categories.forEach(function(cat) { %>
+                <option value="<%= cat %>"><%= cat %></option>
+              <% }); %>
+            </select>
+            <button type="submit" class="btn btn-primary">Browse 📂</button>
+          </div>
+        </div>
+      </form>
+
+      <!-- quick category pills -->
+      <label style="margin-top: 15px;">Quick Category Filters:</label>
+      <div class="category-pills">
+        <% categories.forEach(function(cat) { %>
+          <a href="/category/<%= encodeURIComponent(cat) %>" class="pill"><%= cat %></a>
+        <% }); %>
+      </div>
+    </section>
+
+    <!-- featured cocktail card -->
+    <% if (featuredDrink) { %>
+      <section class="card">
+        <h2>Featured Drink: <%= featuredDrink.name %> 🍹</h2>
+        
+        <div class="recipe-main-grid" style="margin-bottom: 10px;">
+          <div class="recipe-image-wrap">
+            <img src="<%= featuredDrink.thumbnail %>" alt="<%= featuredDrink.name %>">
+          </div>
+          <div>
+            <div class="recipe-badges" style="margin-bottom: 12px;">
+              <span class="badge badge-category"><%= featuredDrink.category %></span>
+              <span class="badge badge-alcohol"><%= featuredDrink.alcoholic %></span>
+              <span class="badge badge-glass"><%= featuredDrink.glass %></span>
+            </div>
+
+            <h3>Key Ingredients:</h3>
+            <ul class="ingredients-list" style="margin-bottom: 15px;">
+              <% featuredDrink.ingredients.slice(0, 4).forEach(function(item) { %>
+                <li>
+                  <span class="ingredient-name"><%= item.name %></span>
+                  <span class="ingredient-measure"><%= item.measure %></span>
+                </li>
+              <% }); %>
+              <% if (featuredDrink.ingredients.length > 4) { %>
+                <li style="color: #7f8c8d; font-size: 0.85rem;">+ <%= featuredDrink.ingredients.length - 4 %> more ingredients</li>
+              <% } %>
+            </ul>
+
+            <a href="/drink/<%= featuredDrink.id %>" class="btn btn-primary btn-block">
+              View Full Recipe & Food Pairing 🍸
+            </a>
+          </div>
+        </div>
+      </section>
+    <% } %>
+
+    <!-- footer -->
+    <footer>
+      <p>&copy; <%= new Date().getFullYear() %> Cocktail Companion. Powered by TheCocktailDB, TheMealDB & JokeAPI.</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
